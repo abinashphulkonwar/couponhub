@@ -31,7 +31,7 @@ router.post(
 
     console.log(req.body);
 
-    res.send(req.body);
+    res.send(userdb);
   }
 );
 
