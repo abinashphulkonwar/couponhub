@@ -1,8 +1,8 @@
-import express from 'express';
+import express from "express";
 
 const router = express.Router();
 
-router.get('/currentuser', (req, res) => {
+router.get("/currentuser", async (req, res) => {
   res.json({ currentUser: "hiiiiiiiiii" });
 });
 
