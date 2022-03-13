@@ -6,8 +6,20 @@ import { loginRouter } from "./routes/login";
 import { signupRouter } from "./routes/signup";
 import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errors/not-found-error";
+import mongoose from "mongoose";
 
 const app = express();
+
+const db__url = process.env.DB_URL || "mongodb://localhost/auth";
+
+mongoose
+  .connect(db__url)
+  .then((res) => {
+    console.log("working");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 app.use(json());
 
