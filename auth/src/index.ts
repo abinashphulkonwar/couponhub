@@ -10,7 +10,7 @@ import mongoose from "mongoose";
 
 const app = express();
 
-const db__url = process.env.DB_URL || "mongodb://localhost/auth";
+const db__url = "mongodb://auth-mongo-srv/auth" || "mongodb://localhost/auth";
 
 mongoose
   .connect(db__url)
