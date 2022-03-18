@@ -1,0 +1,1 @@
+kubectl create secret generic jwt-secret --from-literal=jwt=auisdhoadasdd9awidoiwqandjd
