@@ -3,7 +3,7 @@ import { CustomError } from "./custom-error";
 
 export class RequestValidationError extends CustomError {
   statusCode = 422;
-  constructor(private errors: ValidationError[]) {
+  constructor(public errors: ValidationError[]) {
     super("invalid request parameters");
 
     Object.setPrototypeOf(this, RequestValidationError.prototype);
