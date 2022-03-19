@@ -13,9 +13,9 @@ export class RequestValidationError extends CustomError {
     return this.errors.map((err) => {
       return {
         message: err.msg,
-        field: err.param,
-        value: err.value,
-        location: err.location,
+        field: err?.param,
+        value: err?.value,
+        location: err?.location,
       };
     });
   }

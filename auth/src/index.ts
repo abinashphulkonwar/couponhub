@@ -33,11 +33,11 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
   })
 );
 
-app.use("/api/users/", signupRouter);
+app.use("/api/users", signupRouter);
 app.use("/api/users", loginRouter);
 app.use("/api/users", currentUserRouter);
 
@@ -48,5 +48,8 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 app.use(errorHandler);
 
 app.listen(3000, () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error("jwt key not defined");
+  }
   console.log("listing on port 3000");
 });
