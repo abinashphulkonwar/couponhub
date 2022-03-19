@@ -32,9 +32,13 @@ router.post(
 
     console.log(req.body);
 
+    if (!process.env.JWT_KEY) {
+      throw new BadRequestError("jwt key not defined");
+    }
+
     const userJwt = await jwt.sign(
       { _id: userdb._id, email: userdb.email },
-      "session"
+      process.env.JWT_KEY
     );
 
     req.session = {

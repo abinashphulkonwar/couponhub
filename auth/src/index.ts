@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 import express from "express";
 import "express-async-errors";
 import { json, Request, Response, NextFunction } from "express";
@@ -11,7 +15,7 @@ import mongoose from "mongoose";
 
 const app = express();
 
-const db__url = "mongodb://localhost/auth" || "mongodb://auth-mongo-srv/auth";
+const db__url = process.env.DB_URL || "mongodb://auth-mongo-srv/auth";
 
 mongoose
   .connect(db__url)
