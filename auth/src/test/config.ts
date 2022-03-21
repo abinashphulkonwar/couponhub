@@ -14,7 +14,6 @@ beforeAll(async () => {
       console.log("working");
     })
     .catch((err: Error) => {
-      //  throw new DatabaseConnectionError(err.message, databaseConnectError, 500);
       console.log(err);
     });
 });
