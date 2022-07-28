@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import { body, validationResult } from "express-validator";
 import { RequestValidationError } from "../errors/request-validation-error";
 import { Password } from "../services/password";
@@ -11,6 +11,10 @@ const router = express.Router();
 
 router.post(
   "/login",
+  (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
+    next();
+  },
   [
     body("email").isEmail().normalizeEmail().withMessage("email must be valid"),
     body("password")
@@ -28,10 +32,7 @@ router.post(
 
     const isValid = await Password.compare(userdb.password, password);
     if (isValid) {
-      const userJwt = await jwt.sign(
-        { id: userdb._id, email: userdb.email },
-        process.env.JWT_KEY!
-      );
+      const userJwt = await jwt.sign({ id: userdb._id }, process.env.JWT_KEY!);
 
       req.session = {
         jwt: userJwt,
