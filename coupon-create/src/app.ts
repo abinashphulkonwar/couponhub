@@ -4,7 +4,9 @@ import { json, Request, Response, NextFunction } from "express";
 import cookieSession from "cookie-session";
 import { createRoute } from "./routes/create";
 import { removeCoupons } from "./routes/remove";
-import { errorHandler } from "../../lib";
+import { updateRoute } from "./routes/update";
+import { errorHandler, NotFoundError } from "../../lib";
+
 const app = express();
 
 app.set("trust proxy", true);
@@ -21,8 +23,11 @@ app.use(
 
 app.use("/api/v1/coupon", createRoute);
 app.use("/api/v1/coupon", removeCoupons);
+app.use("/api/v1/coupon", updateRoute);
 
-// app.use(async (req: Request, res: Response, next: NextFunction) => {});
+app.use(async (req: Request, res: Response, next: NextFunction) => {
+  throw new NotFoundError();
+});
 
 app.use(errorHandler);
 

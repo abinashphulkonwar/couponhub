@@ -15,7 +15,7 @@ jest.setTimeout(30000);
 beforeAll(async () => {
   process.env.JWT_KEY = "auisdhoadasdd9awidoiwqandjd";
   process.env.NODE_ENV = "development";
-
+  process.env.USER_ID = new Types.ObjectId().toHexString();
   await mongoose
     .connect(db_url)
     .then((res: any) => {
@@ -27,7 +27,6 @@ beforeAll(async () => {
 });
 
 const createCoupons = async () => {
-  process.env.USER_ID = new Types.ObjectId().toHexString();
   const coupondb = new Coupon({
     userId: process.env.USER_ID,
     title: "coupon",
@@ -54,8 +53,6 @@ afterAll(async () => {
   }
 
   await Coupon.deleteMany({ _id: { $in: couponIds } });
-
-  const coupondblength = await Coupon.find({});
 });
 
 global.getUsrerToken = () => {

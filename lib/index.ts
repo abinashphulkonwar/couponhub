@@ -3,6 +3,13 @@ import {
   currentUser,
   validationRequest,
   errorHandler,
+  NotFoundError,
 } from "./src/app";
 
-export { requireAuth, currentUser, validationRequest, errorHandler };
+export {
+  requireAuth,
+  currentUser,
+  validationRequest,
+  errorHandler,
+  NotFoundError,
+};

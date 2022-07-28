@@ -34,8 +34,6 @@ router.delete(
     } else {
       return res.status(401).json({ message: "you don't have permission" });
     }
-
-    // res.status(200).json({ length: coupondblength.length });
   }
 );
 
