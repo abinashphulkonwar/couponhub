@@ -26,3 +26,4 @@ manifests
 *.njsproj
 *.sln
 *.sw?
+*.exe
