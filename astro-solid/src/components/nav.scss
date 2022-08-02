@@ -1,0 +1,22 @@
+.header__container {
+  font-size: 2rem;
+  font-weight: bold;
+  // padding: 0 24px;
+  width: 100vw;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: var(--color-bg);
+  .title {
+    padding-left: 24px;
+  }
+  nav-lit {
+    margin-right: 24px;
+  }
+}

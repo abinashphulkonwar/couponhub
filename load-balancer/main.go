@@ -22,13 +22,13 @@ func main() {
 
 	director := func(request *http.Request) {
 
-		log.Println(log.Ldate, request.URL.Path)
-
 		if strings.Contains(request.URL.Path, routes.auth) {
+			log.Println(log.Ldate, request.URL.Path)
 			request.URL.Scheme = "http"
 			request.URL.Host = "localhost:3000"
 
 		} else if strings.Contains(request.URL.Path, routes.create) {
+			log.Println(log.Ldate, request.URL.Path)
 			request.URL.Scheme = "http"
 			request.URL.Host = "localhost:3001"
 		} else {
