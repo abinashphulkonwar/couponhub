@@ -15,7 +15,7 @@ router.post(
     body("password")
       .isLength({ min: 5, max: 20 })
       .escape()
-      .withMessage("must be at least 5 chars long"),
+      .withMessage("password must be at least 5 chars long"),
   ],
   validationRequest,
   async (req: Request, res: Response) => {

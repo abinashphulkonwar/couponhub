@@ -17,7 +17,7 @@ mongoose
     console.log(err);
   });
 
-app.listen(3000, () => {
+app.listen(3001, () => {
   if (!process.env.JWT_KEY) {
     throw new Error("jwt key not defined");
   }
