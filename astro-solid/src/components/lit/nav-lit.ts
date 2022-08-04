@@ -15,7 +15,7 @@ export class NavLit extends LitElement {
 
   @property({ type: Boolean }) isMouseEnter: boolean = false;
   isMouseEnterManu: boolean = false;
-  @property({ type: String, attribute: "user-email" }) email: String;
+  @property({ type: String, attribute: "email" }) email: String;
   @property({ type: Array }) errorData: ErrorInterface[];
   constructor() {
     super();
