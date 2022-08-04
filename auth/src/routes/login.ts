@@ -32,7 +32,10 @@ router.post(
 
     const isValid = await Password.compare(userdb.password, password);
     if (isValid) {
-      const userJwt = await jwt.sign({ id: userdb._id }, process.env.JWT_KEY!);
+      const userJwt = await jwt.sign(
+        { id: userdb._id, email: email },
+        process.env.JWT_KEY!
+      );
 
       req.session = {
         jwt: userJwt,

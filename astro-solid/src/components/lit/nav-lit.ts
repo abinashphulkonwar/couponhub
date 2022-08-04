@@ -2,6 +2,10 @@ import { LitElement, css, html, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import styles from "./nav-lit.css";
 
+export interface ErrorInterface {
+  message: string;
+}
+
 @customElement("nav-lit")
 export class NavLit extends LitElement {
   // Define scoped styles right with your component, in plain CSS
@@ -11,9 +15,11 @@ export class NavLit extends LitElement {
 
   @property({ type: Boolean }) isMouseEnter: boolean = false;
   isMouseEnterManu: boolean = false;
-
+  @property({ type: String, attribute: "user-email" }) email: String;
+  @property({ type: Array }) errorData: ErrorInterface[];
   constructor() {
     super();
+    console.log(this.email);
   }
 
   private onMouseEnter(): void {
@@ -38,7 +44,40 @@ export class NavLit extends LitElement {
     this.onMouseLeave();
   }
 
+  private async onPressHandler(): Promise<void> {
+    try {
+      this.errorData = [];
+      const fetchData = await fetch("/api/users/logout");
+
+      const res = await fetchData.json();
+      console.log(res);
+      if (fetchData.ok) {
+      } else {
+        this.errorData = res;
+      }
+    } catch (err) {
+      console.log(err.message);
+      this.errorData = [{ message: err.message }];
+    }
+  }
+
   render() {
+    if (this.errorData?.length > 0) {
+      return html`
+        ${this.errorData.map((val) => {
+          return html`<span>${val.message} </span>`;
+        })}
+      `;
+    }
+    if (this.email?.length) {
+      return html`
+        <div class="container">
+          <a class="account">Account</a>
+          <button class="btn" @click="${this.onPressHandler}">Logout</button>
+        </div>
+      `;
+    }
+
     return html`<div
       class="container"
       @mouseover="${this.onMouseEnter}"

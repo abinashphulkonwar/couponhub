@@ -30,7 +30,10 @@ router.post(
 
     console.log(req.body);
 
-    const userJwt = await jwt.sign({ id: userdb._id }, process.env.JWT_KEY!);
+    const userJwt = await jwt.sign(
+      { email: email, id: userdb._id },
+      process.env.JWT_KEY!
+    );
 
     req.session = {
       jwt: userJwt,

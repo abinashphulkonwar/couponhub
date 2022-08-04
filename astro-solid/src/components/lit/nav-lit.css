@@ -1,54 +1,73 @@
 .header {
-    font-size:  1.5rem;
-    cursor: pointer;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
-
 .container {
-    position: relative;
-
+  position: relative;
 }
 
 .manu__container {
-    position: absolute;
-background-color: white;
-width: 500px;
-min-height: 200px;
-max-height: 400px;
-transform:translateX(-440px);
-display: none;
-transition: display 400ms ease-in-out;
-border-radius: 10px;
+  position: absolute;
+  background-color: white;
+  width: 500px;
+  min-height: 200px;
+  max-height: 400px;
+  transform: translateX(-440px);
+  display: none;
+  transition: display 400ms ease-in-out;
+  border-radius: 10px;
 
-box-shadow: 0px 0px 1px black;
-padding: 24;
-
-
-
+  box-shadow: 0px 0px 1px black;
+  padding: 24;
 }
-
-
 
 .display {
-    display: block;
-
-  
+  display: block;
 }
-
-
 
 .route {
-    display: block;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 10px;
-    color: #000000;
-    transition: color 250ms ease-in-out;
+  display: block;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 10px;
+  color: #000000;
+  transition: color 250ms ease-in-out;
 }
-
 
 .route:hover {
-    color: #4f39fa;
+  color: #4f39fa;
 }
 
+.account {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 10px;
+  color: #000000;
+  transition: color 500ms ease-in-out;
+  cursor: pointer;
+}
+
+.account:hover {
+  color: #4f39fa;
+}
+
+.btn {
+  padding: 5px 23px;
+  text-decoration: none;
+  font-size:0.9rem;
+  font-weight: 500;
+  margin: 10px;
+  color: #000000;
+  transition: background-color 500ms ease-in-out;
+ 
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.btn:hover {
+  background-color: white;
+
+}

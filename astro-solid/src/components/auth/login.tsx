@@ -3,7 +3,7 @@ import "./sign-up.scss";
 import { createSignal, createEffect, useTransition } from "solid-js";
 import { addUser } from "src/store/user";
 
-function SignUp() {
+function Login() {
   const [isRequestProcessing, setIsrequestProcessing] = createSignal(false);
   const [error, setError] = createSignal([]);
   const onCreateAccountHandler = async (e: Event) => {
@@ -17,7 +17,7 @@ function SignUp() {
       const password = e.target?.password?.value;
       console.log(email, password);
 
-      const fetchData = await fetch("/api/users/signup", {
+      const fetchData = await fetch("/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,11 +69,11 @@ function SignUp() {
           );
         })}
         <button type="submit">
-          {isRequestProcessing() ? "Processing..." : "Create Account"}
+          {isRequestProcessing() ? "Processing..." : "Log in"}
         </button>
       </form>
     </div>
   );
 }
 
-export default SignUp;
+export default Login;
