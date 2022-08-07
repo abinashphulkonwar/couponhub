@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: create-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: create
+  template:
+    metadata:
+      labels:
+        app: create
+    spec:
+      containers:
+        - name: create
+          image: abinashphulkonwar/create:latest
+          imagePullPolicy: Never
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: create-srv
+spec:
+  selector:
+    app: create
+  ports:
+    - name: create
+      protocol: TCP
+      port: 3002
+      targetPort: 3002

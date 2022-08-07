@@ -16,4 +16,12 @@ spec:
               service:
                 name: auth-srv
                 port:
-                  number: 3000
+                  number: 3001
+        paths:
+          - path: /api/create/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: create-srv
+                port:
+                  number: 3002

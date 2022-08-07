@@ -1,0 +1,24 @@
+{
+  "name": "coupon-hub-lib",
+  "version": "1.0.0",
+  "description": "coupon-hub-lib",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev --poll index.ts"
+  },
+  "author": "abinash phulkonwar",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^6.2.6",
+    "socket.io": "^4.5.1",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.6",
+    "utf-8-validate": "^5.0.9"
+  }
+}
