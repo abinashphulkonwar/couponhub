@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev --poll ./src/index.ts",
+    "dev": "ts-node-dev --poll ./src/event/socket-io-client.ts",
     "test": "jest --watchAll --detectOpenHandles --no-cache"
   },
   "author": "abinash phulkonwar",
@@ -26,6 +27,7 @@
     "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.6",
+    "socket.io-client": "^4.5.1",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.6.2"
   },
