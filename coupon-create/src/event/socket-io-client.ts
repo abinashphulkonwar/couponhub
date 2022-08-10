@@ -10,5 +10,9 @@ const socket = io("http://localhost:3005", {
 });
 
 socket.on("create user lister", (data: UserCreateDataInterface) => {
-  console.log(data);
+  try {
+    socket.emit("create user publisher ack", { _id: data!._id });
+  } catch (err: any) {
+    console.log(err.message);
+  }
 });

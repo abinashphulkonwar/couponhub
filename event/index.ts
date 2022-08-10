@@ -1,7 +1,23 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 import { Server } from "socket.io";
 import { createUserHandler } from "./handlers/create-user-handler";
 import { chanaleTypes } from "../types/chanale-types";
 import { addData, removeData } from "./data/socket-client-db";
+import mongoose from "mongoose";
+
+const db__url = process.env.DB_URL || "mongodb://auth-mongo-srv/auth";
+
+mongoose
+  .connect(db__url)
+  .then((res) => {
+    console.log("working");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const io = new Server({
   cors: {

@@ -9,22 +9,37 @@ let index: number = 0;
 
 export const createUserHandler = (socket: Socket) => {
   socket.on("create user publisher", async (data: UserCreateDataInterface) => {
-    const socketIds = getData(chanaleTypes.userCreate, listerType);
-    console.log(socketIds);
-    const eventdb = new Event({ chanle: chanaleTypes.userCreate, body: data });
+    try {
+      const socketIds = getData(chanaleTypes.userCreate, listerType);
+      console.log(socketIds);
+      const eventdb = new Event({
+        chanle: chanaleTypes.userCreate,
+        body: data,
+      });
 
-    if (socketIds?.length) {
-      if (socketIds.length > index + 1) {
-        index++;
-      } else if (socketIds.length == index) {
-        index = 0;
-      } else {
-        index = 0;
+      if (socketIds?.length) {
+        if (socketIds.length > index + 1) {
+          index++;
+        } else if (socketIds.length == index) {
+          index = 0;
+        } else {
+          index = 0;
+        }
       }
-    }
 
-    // await eventdb.save();
-    if (!socketIds?.length) return;
-    socket.to(socketIds[index]).emit("create user lister", eventdb);
+      await eventdb.save();
+      if (!socketIds?.length) return;
+      socket.to(socketIds[index]).emit("create user lister", eventdb);
+    } catch (err: any) {
+      console.log(err?.message);
+    }
+  });
+
+  socket.on("create user publisher ack", async (data: { _id: string }) => {
+    try {
+      await Event.findByIdAndDelete(data?._id);
+    } catch (err: any) {
+      console.log(err?.message);
+    }
   });
 };
