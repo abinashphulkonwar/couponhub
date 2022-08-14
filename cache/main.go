@@ -1,32 +1,60 @@
 package main
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
 
-	gojson "encoding/json"
-
 	"github.com/gin-gonic/gin"
 )
 
-type data struct {
-	data string
+type chachData struct {
+	Id   string `json:"id"`
+	Data interface {
+	} `json:"data"`
+}
+type bodyStruct struct {
+	Id string `json:"id"`
 }
 
 func main() {
-	cache := make(map[string]data)
-	cache["id"] = data{
-
-		data: "hiiiii",
-	}
+	cache := make(map[string]chachData)
 	app := gin.Default()
-	app.GET("/",
 
+	app.Use(gin.Logger())
+	app.Use(gin.Recovery())
+	app.GET("/",
 		func(c *gin.Context) {
-			log.Println(cache["id"])
+
+			bytes, err := ioutil.ReadAll(c.Request.Body)
+
+			if err != nil {
+				c.Error(err)
+				return
+			}
+
+			dataRequest := bodyStruct{}
+			json.Unmarshal(bytes, &dataRequest)
+
+			if dataRequest.Id == "" {
+				c.JSON(http.StatusUnprocessableEntity, gin.H{
+					"message": "cache id not found",
+				})
+				return
+			}
+
+			response, isValue := cache[dataRequest.Id]
+
+			if !isValue {
+				c.JSON(http.StatusNotFound, gin.H{
+					"message": "cache not found",
+				})
+				return
+			}
+
 			c.JSON(http.StatusOK, gin.H{
-				"message": "hiiiii",
+				"data": response,
 			})
 
 		})
@@ -35,15 +63,28 @@ func main() {
 
 		bytes, err := ioutil.ReadAll(c.Request.Body)
 		if err != nil {
-			panic(err)
+			c.Error(err)
+			return
 		}
+
+		length := len(bytes) / 1000
+		if length > 100 {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"message": "large payload",
+			})
+			return
+		}
+
 		dataSring := string(bytes[:])
+
+		dataRequest := chachData{}
+		json.Unmarshal(bytes, &dataRequest)
 		log.Println(dataSring)
-		dataRequest := data{}
-		gojson.Unmarshal([]byte(dataSring), &dataRequest)
-		log.Println(dataRequest)
+		cache[dataRequest.Id] = dataRequest
+
+		log.Println(cache)
 		c.JSON(http.StatusOK, gin.H{
-			"message": "hiiiii",
+			"message": dataRequest,
 		})
 
 	})
