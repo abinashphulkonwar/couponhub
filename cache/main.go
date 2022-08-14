@@ -89,5 +89,40 @@ func main() {
 
 	})
 
+	app.DELETE("/",
+		func(c *gin.Context) {
+
+			bytes, err := ioutil.ReadAll(c.Request.Body)
+
+			if err != nil {
+				c.Error(err)
+				return
+			}
+
+			dataRequest := bodyStruct{}
+			json.Unmarshal(bytes, &dataRequest)
+
+			if dataRequest.Id == "" {
+				c.JSON(http.StatusUnprocessableEntity, gin.H{
+					"message": "cache id not found",
+				})
+				return
+			}
+
+			_, isValue := cache[dataRequest.Id]
+
+			if !isValue {
+				c.JSON(http.StatusNotFound, gin.H{
+					"message": "cache not found",
+				})
+				return
+			}
+			delete(cache, dataRequest.Id)
+			c.JSON(http.StatusOK, gin.H{
+				"message": "success",
+			})
+
+		})
+
 	app.Run()
 }
