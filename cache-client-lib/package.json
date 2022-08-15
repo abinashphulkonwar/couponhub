@@ -1,0 +1,22 @@
+{
+  "name": "cache-client",
+  "version": "1.0.0",
+  "description": "cache client lib",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev --poll ./src/index.ts",
+    "test": "jest --watchAll --detectOpenHandles --no-cache"
+  },
+  "author": "abinash phulkonwar",
+  "license": "ISC",
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/config.ts"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.3"
+  }
+}

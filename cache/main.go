@@ -2,8 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	"golang-cache/services"
 	"io/ioutil"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,12 +13,14 @@ type chachData struct {
 	Id   string `json:"id"`
 	Data interface {
 	} `json:"data"`
+	time int
 }
 type bodyStruct struct {
 	Id string `json:"id"`
 }
 
 func main() {
+
 	cache := make(map[string]chachData)
 	app := gin.Default()
 
@@ -75,16 +77,22 @@ func main() {
 			return
 		}
 
-		dataSring := string(bytes[:])
-
 		dataRequest := chachData{}
-		json.Unmarshal(bytes, &dataRequest)
-		log.Println(dataSring)
+		errJson := json.Unmarshal(bytes, &dataRequest)
+		dataRequest.time = services.GetTime()
+
+		if errJson != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"message": "unprocessable data",
+			})
+			return
+		}
+
 		cache[dataRequest.Id] = dataRequest
 
-		log.Println(cache)
 		c.JSON(http.StatusOK, gin.H{
 			"message": dataRequest,
+			"time":    dataRequest.time,
 		})
 
 	})
