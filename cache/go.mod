@@ -1,4 +1,4 @@
-module golang-cache
+module github.com/abinashphulkonwar/golangcache
 
 go 1.17
 
