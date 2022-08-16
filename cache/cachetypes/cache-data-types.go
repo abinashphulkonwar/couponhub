@@ -5,7 +5,7 @@ type ChachData struct {
 
 	Data interface {
 	} `json:"data"`
-	Time int
+	Time int64
 }
 
 type BodyStruct struct {

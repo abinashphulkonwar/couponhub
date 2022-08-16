@@ -1,6 +1,8 @@
 package db
 
-import "github.com/abinashphulkonwar/golangcache/cachetypes"
+import (
+	"github.com/abinashphulkonwar/golangcache/cachetypes"
+)
 
 var Cache = make(map[string]cachetypes.ChachData)
 

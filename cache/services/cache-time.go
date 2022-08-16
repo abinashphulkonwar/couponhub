@@ -5,13 +5,12 @@ import (
 	"time"
 )
 
-func GetTime() int {
+func GetTime() int64 {
 
 	currentTime := time.Now()
 
-	fmt.Println(currentTime.Add(time.Duration(60 * 60 * 24)))
 	fmt.Println(currentTime)
 
-	return currentTime.Second() + (60 * 60 * 12)
+	return currentTime.Unix()
 
 }
