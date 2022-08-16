@@ -1,16 +1,19 @@
 import { request } from "http";
 
-const getData = async (id: string) => {
-  const postData = JSON.stringify({
-    id: id,
-  });
+interface cacheDataPostInterface {
+  id: string;
+  data: any;
+}
+
+function setData(data: cacheDataPostInterface) {
+  const postData = JSON.stringify(data);
 
   return new Promise<void>((resolve, reject): any => {
     const req = request(
       {
         hostname: "localhost",
         port: 8080,
-        path: "/get-data",
+        path: "/",
         agent: false,
         method: "POST",
         headers: {
@@ -38,6 +41,6 @@ const getData = async (id: string) => {
     req.write(postData);
     req.end();
   });
-};
+}
 
-export { getData };
+export { setData };

@@ -1,6 +1,6 @@
 import { request } from "http";
 
-const getData = async (id: string) => {
+function removeData(id: string) {
   const postData = JSON.stringify({
     id: id,
   });
@@ -10,9 +10,9 @@ const getData = async (id: string) => {
       {
         hostname: "localhost",
         port: 8080,
-        path: "/get-data",
+        path: "/",
         agent: false,
-        method: "POST",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           "Content-Length": Buffer.byteLength(postData),
@@ -38,6 +38,6 @@ const getData = async (id: string) => {
     req.write(postData);
     req.end();
   });
-};
+}
 
-export { getData };
+export { removeData };
