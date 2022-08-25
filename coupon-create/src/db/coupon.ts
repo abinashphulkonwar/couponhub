@@ -37,10 +37,11 @@ const CouponScheam = new Schema(
     title: {
       type: String,
       required: true,
+      index: true,
     },
     userId: {
       type: mongoose.Types.ObjectId,
-
+      index: true,
       required: true,
     },
     image: {
@@ -74,6 +75,10 @@ const CouponScheam = new Schema(
     timestamps: true,
   }
 );
+
+CouponScheam.index({
+  createAted: 1,
+});
 
 CouponScheam.statics.build = (attrs: CouponAttrs) => {
   return new Coupon(attrs);
