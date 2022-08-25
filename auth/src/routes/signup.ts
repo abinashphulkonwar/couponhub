@@ -5,6 +5,7 @@ import { User } from "../db/user";
 import { BadRequestError } from "../errors/bad-request-error";
 import jwt from "jsonwebtoken";
 import { validationRequest } from "../middlewares/request-validation";
+import { sendUserCrateEvent } from "../event/socket-io-client";
 
 const router = express.Router();
 
@@ -27,6 +28,16 @@ router.post(
 
     const userdb = User.build({ email, password });
     await userdb.save();
+    if (typeof userdb.__v == "number") {
+      sendUserCrateEvent({
+        id: userdb._id,
+        body: {
+          id: userdb._id,
+          email: userdb.email,
+          __v: userdb.__v,
+        },
+      });
+    }
 
     console.log(req.body);
 

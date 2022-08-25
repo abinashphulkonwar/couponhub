@@ -15,15 +15,16 @@ const createUserListner = () => {
     "create user lister",
     async (data: UserCreateDataInterface) => {
       try {
-        if (!data.body?.id || !data.body?.email) return;
+        if (!data.body?.id || !data.body?.email || data.body.__v >= 0) return;
         const userdb = User.build({
           id: data.body.id,
           email: data.body.email,
+          __v: data.body.__v,
         });
         console.log(userdb);
         await userdb.save();
 
-        socket.emit("create user publisher ack", { _id: data!._id });
+        socket.emit("create user publisher ack", { id: data!.id });
       } catch (err: any) {
         console.log(err.message);
       }

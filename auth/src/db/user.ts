@@ -36,7 +36,7 @@ const UserScheam = new Schema(
         delete ret.__v;
         ret.id = ret._id;
         delete ret._id;
-        delete ret.createdAt;
+        ret.createdAt;
         delete ret.updatedAt;
       },
     },

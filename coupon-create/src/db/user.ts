@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 interface UserAttrs {
   id: string;
   email: string;
+  __v: number;
 }
 
 interface UserModule extends mongoose.Model<UserDoc> {
@@ -14,6 +15,7 @@ interface UserModule extends mongoose.Model<UserDoc> {
 interface UserDoc extends mongoose.Document {
   id: string;
   email: string;
+  __v: number;
 }
 
 const UserScheam = new Schema(

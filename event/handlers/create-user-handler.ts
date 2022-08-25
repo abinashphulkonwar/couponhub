@@ -30,15 +30,18 @@ export const createUserHandler = (socket: Socket) => {
       await eventdb.save();
       console.log(eventdb);
       if (!socketIds?.length) return;
-      socket.to(socketIds[index]).emit("create user lister", eventdb);
+      socket.to(socketIds[index]).emit("create user lister", {
+        id: eventdb._id,
+        body: eventdb.body,
+      });
     } catch (err: any) {
       console.log(err?.message);
     }
   });
 
-  socket.on("create user publisher ack", async (data: { _id: string }) => {
+  socket.on("create user publisher ack", async (data: { id: string }) => {
     try {
-      await Event.findByIdAndDelete(data?._id);
+      await Event.findByIdAndDelete(data?.id);
     } catch (err: any) {
       console.log(err?.message);
     }
