@@ -28,6 +28,7 @@ export const createUserHandler = (socket: Socket) => {
       }
 
       await eventdb.save();
+      console.log(eventdb);
       if (!socketIds?.length) return;
       socket.to(socketIds[index]).emit("create user lister", eventdb);
     } catch (err: any) {

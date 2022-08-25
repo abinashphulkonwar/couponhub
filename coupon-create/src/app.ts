@@ -6,6 +6,7 @@ import { createRoute } from "./routes/create";
 import { removeCoupons } from "./routes/remove";
 import { updateRoute } from "./routes/update";
 import { errorHandler, NotFoundError } from "../../lib";
+import { createUserListner } from "./event/socket-io-client";
 
 const app = express();
 
@@ -30,5 +31,7 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use(errorHandler);
+
+createUserListner();
 
 export default app;
