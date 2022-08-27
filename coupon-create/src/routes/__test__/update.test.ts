@@ -27,7 +27,11 @@ it("return a 200 on sucessfull update coupon", async () => {
   const response = await request(app)
     .put(`/api/v1/coupon/update/${process.env.UPDATE_OBJECT_ID}`)
     .set("Cookie", token)
-    .send({ title: title })
+    .send({
+      title: title,
+      image: "http://couponhub.com/hbdakbd",
+      video: "http://couponhub.com/asjdaksndkjasdb",
+    })
     .expect(200);
 
   const coupondb = await Coupon.findById({ _id: process.env.UPDATE_OBJECT_ID });

@@ -21,11 +21,49 @@ router.put(
   [
     body("title")
       .isString()
+      .trim()
+      .escape()
+      .withMessage("title is required")
+      .optional({ nullable: true }),
+  ],
+  [
+    body("image")
+      .isURL()
+      .trim()
+      .withMessage("image is required")
+      .optional({ nullable: true }),
+  ],
+  [
+    body("video")
+      .isURL()
+      .trim()
+
+      .withMessage("video is required")
+      .optional({ nullable: true }),
+  ],
+  [
+    body("des")
+      .isArray()
+      .withMessage("des is required")
+      .optional({ nullable: true }),
+  ],
+  [
+    body("type")
+      .isString()
+      .trim()
+      .escape()
+      .withMessage("type is required")
+      .optional({ nullable: true }),
+  ],
+  [
+    body("coupon")
+      .isString()
       .not()
       .isEmpty()
       .trim()
       .escape()
-      .withMessage("title is required"),
+      .withMessage("coupon is required")
+      .optional({ nullable: true }),
   ],
   validationRequest,
   async (req: Request, res: Response) => {
@@ -34,11 +72,19 @@ router.put(
     if (!coupondb) {
       return res.status(404).json({ message: "coupon not found" });
     }
-
+    console.log(req.body);
     const user = req.currentUser;
 
     if (coupondb?.userId?.toString() === user?.id) {
-      coupondb.set({ title: req.body.title });
+      const { title, image, video, coupon, type, des } = req.body;
+
+      if (title) coupondb.set({ title: title });
+      if (image) coupondb.set({ image: image });
+      if (video) coupondb.set({ video: video });
+      if (coupon) coupondb.set({ coupon: coupon });
+      if (type) coupondb.set({ type: type });
+      if (des) coupondb.set({ des: des });
+
       await coupondb.save();
 
       return res.status(200).json({ message: "coupon removed" });

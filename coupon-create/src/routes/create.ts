@@ -28,7 +28,12 @@ router.post(
       .withMessage("coupon is required"),
   ],
   [body("image").isURL().withMessage("video is required")],
-  [body("type").isString().withMessage("type is required")],
+  [
+    body("type")
+      .isString()
+      .withMessage("type is required")
+      .optional({ nullable: true }),
+  ],
   [body("video").isURL().withMessage("video is required")],
   [body("des").isArray().withMessage("des is required")],
   validationRequest,
