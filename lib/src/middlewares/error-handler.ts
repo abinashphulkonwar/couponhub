@@ -11,7 +11,7 @@ export const errorHandler = async (
     if (err instanceof CustomError) {
       return res.status(err.statusCode).send(err.serializeErrors());
     }
-    console.log(err);
+    console.warn(err);
     res.status(400).send([{ message: err.message }]);
   } catch (error: any) {
     res.status(500).send([{ message: error.message }]);

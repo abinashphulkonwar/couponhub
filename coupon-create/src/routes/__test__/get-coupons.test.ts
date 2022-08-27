@@ -1,4 +1,3 @@
-import { response } from "express";
 import request from "supertest";
 import app from "../../app";
 import { Coupon } from "../../db/coupon";
@@ -12,24 +11,24 @@ const createUpdateCoupons = async () => {
     image: "http://couponhub.com/image",
     video: "http://couponhub.com/video",
   });
-  process.env.UPDATE_OBJECT_ID = coupondb.id;
   await coupondb.save();
+  return coupondb;
 };
 
-it("return a 200 on sucessfull update coupon", async () => {
-  await createUpdateCoupons();
-
+it("return a 200 on sucessfull get coupons", async () => {
   const token = global.getUsrerToken();
 
-  const title = "coupon title";
+  await createUpdateCoupons();
+  await createUpdateCoupons();
+  await createUpdateCoupons();
+  await createUpdateCoupons();
+  await createUpdateCoupons();
 
   const response = await request(app)
-    .put(`/api/v1/coupon/update/${process.env.UPDATE_OBJECT_ID}`)
+    .get("/api/v1/coupon/get")
     .set("Cookie", token)
-    .send({ title: title })
+    .query({ start: 0, limit: 20 })
     .expect(200);
 
-  const coupondb = await Coupon.findById({ _id: process.env.UPDATE_OBJECT_ID });
-
-  expect(coupondb?.title === title);
+  expect(response.body.length > 0);
 });

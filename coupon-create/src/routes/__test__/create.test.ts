@@ -1,6 +1,11 @@
 import { response } from "express";
 import request from "supertest";
 import app from "../../app";
+import { createUserListner } from "../../event/socket-io-client";
+
+it("listen for user create", async () => {
+  expect(createUserListner).toHaveBeenCalledTimes(1);
+});
 
 it("return a 200 on sucessfull create coupon", async () => {
   const token = global.getUsrerToken();

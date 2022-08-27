@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
-import app from "../app";
 import jwt from "jsonwebtoken";
 import { Types } from "mongoose";
 import { Coupon } from "../db/coupon";
+
+jest.mock("../event/socket-io-client.ts");
 
 declare global {
   var getUsrerToken: () => string[];
