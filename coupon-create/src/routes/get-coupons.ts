@@ -28,7 +28,8 @@ router.get(
 
     const data = await Coupon.find({})
       .skip(parseInt(start))
-      .limit(parseInt(limit));
+      .limit(parseInt(limit))
+      .sort({ createAted: 1 });
 
     res.status(200).send(data);
   }

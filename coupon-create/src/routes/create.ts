@@ -28,16 +28,17 @@ router.post(
       .withMessage("coupon is required"),
   ],
   [body("image").isURL().withMessage("video is required")],
+  [body("type").isString().withMessage("type is required")],
   [body("video").isURL().withMessage("video is required")],
   [body("des").isArray().withMessage("des is required")],
   validationRequest,
   async (req: Request, res: Response) => {
     const user = req.currentUser;
-    const { title, des, coupon, image, video } = req.body;
-
+    const { title, des, coupon, image, video, type } = req.body;
     const coupondb = new Coupon({
       userId: new Types.ObjectId(user?.id),
       title: title,
+      type: type,
       coupon: coupon,
       des: des,
       image: image,

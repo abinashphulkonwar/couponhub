@@ -14,7 +14,7 @@ interface CouponAttrs {
   video: string;
   des: blocks[];
   coupon: string;
-
+  type?: string;
   isUsed: boolean;
 }
 
@@ -27,6 +27,7 @@ interface UserDoc extends mongoose.Document {
   title: string;
   video: string;
   des: blocks[];
+  type?: string;
   coupon: string;
   isUsed: false;
   userId: string;
@@ -43,6 +44,10 @@ const CouponScheam = new Schema(
       type: mongoose.Types.ObjectId,
       index: true,
       required: true,
+    },
+    type: {
+      type: String,
+      index: true,
     },
     image: {
       type: String,
@@ -67,7 +72,6 @@ const CouponScheam = new Schema(
   {
     toJSON: {
       transform(doc, ret) {
-        delete ret.__v;
         ret.id = ret._id;
         delete ret._id;
       },
@@ -83,6 +87,13 @@ CouponScheam.index({
 CouponScheam.statics.build = (attrs: CouponAttrs) => {
   return new Coupon(attrs);
 };
+CouponScheam.pre("save", function (next) {
+  if (this.__v >= 0) {
+    this.__v = this.__v + 1;
+  }
+
+  next();
+});
 
 const Coupon = mongoose.model<UserDoc, UserModule>("Coupon", CouponScheam);
 

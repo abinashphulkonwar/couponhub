@@ -19,6 +19,9 @@ it("return a 200 on sucessfull create coupon", async () => {
       coupon: "coupon",
       image: "http://couponhub.com/image",
       video: "http://couponhub.com/video",
+      type: "most watch",
     })
     .expect(200);
+
+  console.log(response.body);
 });

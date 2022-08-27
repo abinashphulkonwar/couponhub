@@ -39,7 +39,6 @@ router.put(
 
     if (coupondb?.userId?.toString() === user?.id) {
       coupondb.set({ title: req.body.title });
-
       await coupondb.save();
 
       return res.status(200).json({ message: "coupon removed" });

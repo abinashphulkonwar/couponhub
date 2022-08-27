@@ -11,6 +11,7 @@ const createUpdateCoupons = async () => {
     coupon: "coupon",
     image: "http://couponhub.com/image",
     video: "http://couponhub.com/video",
+    type: "most watch",
   });
   process.env.UPDATE_OBJECT_ID = coupondb.id;
   await coupondb.save();
