@@ -22,6 +22,4 @@ it("return a 200 on sucessfull create coupon", async () => {
       type: "most watch",
     })
     .expect(200);
-
-  console.log(response.body);
 });

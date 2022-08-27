@@ -36,6 +36,7 @@ router.post(
   ],
   [body("video").isURL().withMessage("video is required")],
   [body("des").isArray().withMessage("des is required")],
+
   validationRequest,
   async (req: Request, res: Response) => {
     const user = req.currentUser;

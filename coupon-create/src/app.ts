@@ -8,6 +8,7 @@ import { updateRoute } from "./routes/update";
 import { errorHandler, NotFoundError } from "../../lib";
 import { createUserListner } from "./event/socket-io-client";
 import { getRoutes } from "./routes/get-coupons";
+import { getTypeRoutes } from "./routes/get-type";
 const app = express();
 
 app.set("trust proxy", true);
@@ -26,6 +27,7 @@ app.use("/api/v1/coupon", createRoute);
 app.use("/api/v1/coupon", removeCoupons);
 app.use("/api/v1/coupon", updateRoute);
 app.use("/api/v1/coupon", getRoutes);
+app.use("/api/v1/coupon", getTypeRoutes);
 
 app.use(async (req: Request, res: Response, next: NextFunction) => {
   throw new NotFoundError();
