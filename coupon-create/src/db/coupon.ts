@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 const Schema = mongoose.Schema;
 
@@ -87,13 +88,8 @@ CouponScheam.index({
 CouponScheam.statics.build = (attrs: CouponAttrs) => {
   return new Coupon(attrs);
 };
-CouponScheam.pre("save", function (next) {
-  if (this.__v >= 0) {
-    this.__v = this.__v + 1;
-  }
 
-  next();
-});
+CouponScheam.plugin(updateIfCurrentPlugin);
 
 const Coupon = mongoose.model<UserDoc, UserModule>("Coupon", CouponScheam);
 

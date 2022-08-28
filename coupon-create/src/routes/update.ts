@@ -86,7 +86,7 @@ router.put(
 
       await coupondb.save();
 
-      return res.status(200).json({ message: "coupon removed" });
+      return res.status(200).json(coupondb);
     } else {
       return res.status(401).json({ message: "you don't have permission" });
     }

@@ -24,4 +24,5 @@ it("return a 200 on sucessfull create coupon", async () => {
     .expect(200);
 
   expect(response.body.title).toEqual(title);
+  expect(response.body.__v).toEqual(0);
 });
