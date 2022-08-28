@@ -4,17 +4,17 @@ import app from "../../app";
 import { createUserListner } from "../../event/socket-io-client";
 
 it("listen for user create", async () => {
-  expect(createUserListner).toHaveBeenCalledTimes(1);
+  expect(createUserListner).toHaveBeenCalled();
 });
 
 it("return a 200 on sucessfull create coupon", async () => {
   const token = global.getUsrerToken();
-
+  const title: string = "coupon";
   const response = await request(app)
     .post("/api/v1/coupon/create")
     .set("Cookie", token)
     .send({
-      title: "coupon",
+      title: title,
       des: [{ type: "header", data: [{ type: "text", data: "coupon" }] }],
       coupon: "coupon",
       image: "http://couponhub.com/image",
@@ -22,4 +22,6 @@ it("return a 200 on sucessfull create coupon", async () => {
       type: "most watch",
     })
     .expect(200);
+
+  expect(response.body.title).toEqual(title);
 });

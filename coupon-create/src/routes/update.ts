@@ -72,7 +72,6 @@ router.put(
     if (!coupondb) {
       return res.status(404).json({ message: "coupon not found" });
     }
-    console.log(req.body);
     const user = req.currentUser;
 
     if (coupondb?.userId?.toString() === user?.id) {

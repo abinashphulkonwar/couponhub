@@ -12,5 +12,5 @@ it("return a 200 on sucessfull remove coupon", async () => {
     .expect(200);
 
   const coupondb = await Coupon.findById({ _id: process.env.OBJECT_ID });
-  expect(coupondb === null);
+  expect(coupondb).toBeNull();
 });

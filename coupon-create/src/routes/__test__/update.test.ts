@@ -36,5 +36,5 @@ it("return a 200 on sucessfull update coupon", async () => {
 
   const coupondb = await Coupon.findById({ _id: process.env.UPDATE_OBJECT_ID });
 
-  expect(coupondb?.title === title);
+  expect(coupondb?.title).toEqual(title);
 });

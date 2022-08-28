@@ -31,5 +31,5 @@ it("return a 200 on sucessfull get coupons with type", async () => {
     .query({ start: 0, limit: 20, type: "type" })
     .expect(200);
 
-  expect(response.body.length > 0);
+  expect(response.body.length).toBeGreaterThanOrEqual(5);
 });
